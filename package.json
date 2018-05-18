@@ -25,6 +25,7 @@
     "@ngrx/router-store": "^5.2.0",
     "@ngrx/store": "^5.2.0",
     "@ngrx/store-devtools": "^5.2.0",
+    "@ngxs/store": "^3.0.1",
     "angularfire2": "^5.0.0-rc.9",
     "bootstrap": "^4.1.1",
     "core-js": "^2.5.4",

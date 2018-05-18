@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxsModule } from '@ngxs/store';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
@@ -27,10 +28,11 @@ import { AuthEffects } from './auth/store/auth.effects';
     ShoppingListModule,
     AuthModule,
     CoreModule,
-    StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([AuthEffects]),
-    StoreRouterConnectingModule,
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    NgxsModule.forRoot(states),
+    // StoreModule.forRoot(reducers),
+    // EffectsModule.forRoot([AuthEffects]),
+    // StoreRouterConnectingModule,
+    // !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [],
   bootstrap: [AppComponent]

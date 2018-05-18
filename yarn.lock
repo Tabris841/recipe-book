@@ -312,6 +312,12 @@
     tree-kill "^1.0.0"
     webpack-sources "^1.1.0"
 
+"@ngxs/store@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@ngxs/store/-/store-3.0.1.tgz#57209cce8ddf93bbcffc6dc599690291337a65be"
+  dependencies:
+    tslib "^1.9.0"
+
 "@schematics/angular@0.6.3":
   version "0.6.3"
   resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-0.6.3.tgz#49f52ed83b161a80414cf9f0fddb0080fd551044"
