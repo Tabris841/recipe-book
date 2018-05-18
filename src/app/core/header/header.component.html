@@ -12,18 +12,18 @@
     </ul>
 
     <ul class="navbar-nav my-2 my-lg-0">
-      <ng-template [ngIf]="!authService.isAuthenticated()">
+      <ng-template [ngIf]="!(authState | async).authenticated">
         <li class="nav-item"><a routerLink="/signup" class="nav-link">Register</a></li>
         <li class="nav-item"><a routerLink="/signin" class="nav-link">Login</a></li>
       </ng-template>
 
       <li class="nav-item">
-        <a class="nav-link" (click)="onLogout()" *ngIf="authService.isAuthenticated()">
+        <a class="nav-link" (click)="onLogout()" *ngIf="(authState | async).authenticated">
           Logout
         </a>
       </li>
 
-      <li class="nav-item" ngbDropdown appDropdown *ngIf="authService.isAuthenticated()">
+      <li class="nav-item" ngbDropdown appDropdown *ngIf="(authState | async).authenticated">
         <a class="nav-link dropdown-toggle" role="button" ngbDropdownToggle>Manage</a>
         <div ngbDropdownMenu>
           <a class="dropdown-item" (click)="onSaveData()">Save Data</a>
