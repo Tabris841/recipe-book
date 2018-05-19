@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { Store } from '@ngxs/store';
 
-import * as fromApp from '../../store/app.reducers';
-import { TrySignup } from '../store/auth.actions';
+import { TrySignup } from '../auth.state';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +10,7 @@ import { TrySignup } from '../store/auth.actions';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent {
-  constructor(private store: Store<fromApp.AppState>) {}
+  constructor(private store: Store) {}
 
   onSignup(form: NgForm) {
     const username = form.value.email;

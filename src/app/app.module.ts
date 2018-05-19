@@ -3,10 +3,8 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxsModule } from '@ngxs/store';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 
 import { environment } from '../environments/environment';
 
@@ -15,8 +13,7 @@ import { CoreModule } from './core/core.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
-import { reducers } from './store/app.reducers';
-import { AuthEffects } from './auth/store/auth.effects';
+import { states } from './app.state';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,10 +26,10 @@ import { AuthEffects } from './auth/store/auth.effects';
     AuthModule,
     CoreModule,
     NgxsModule.forRoot(states),
-    // StoreModule.forRoot(reducers),
-    // EffectsModule.forRoot([AuthEffects]),
-    // StoreRouterConnectingModule,
-    // !environment.production ? StoreDevtoolsModule.instrument() : []
+    NgxsRouterPluginModule.forRoot(),
+    NgxsReduxDevtoolsPluginModule.forRoot({
+      disabled: environment.production
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

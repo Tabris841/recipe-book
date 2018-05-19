@@ -21,7 +21,7 @@ export class Signup {
 }
 
 export class Signin {
-  readonly type = '[Auth] SignIn';
+  static readonly type = '[Auth] SignIn';
 }
 
 export class Logout {
@@ -87,7 +87,7 @@ export class AuthState {
 
   @Action(TrySignup)
   authSignup(
-    { getState, setState, dispatch }: StateContext<AuthStateModel>,
+    { dispatch }: StateContext<AuthStateModel>,
     { payload }: TrySignup
   ) {
     return from(
@@ -101,13 +101,13 @@ export class AuthState {
 
   @Action(TrySignin)
   authSignin(
-    { getState, setState, dispatch }: StateContext<AuthStateModel>,
+    { dispatch }: StateContext<AuthStateModel>,
     { payload }: TrySignin
   ) {
     return from(
       firebase
         .auth()
-        .createUserWithEmailAndPassword(payload.username, payload.password)
+        .signInWithEmailAndPassword(payload.username, payload.password)
     ).pipe(
       switchMap(() => from(firebase.auth().currentUser.getIdToken())),
       tap(() => this.router.navigate(['/'])),

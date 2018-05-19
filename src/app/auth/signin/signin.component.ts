@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { Store } from '@ngxs/store';
 
-import * as fromApp from '../../store/app.reducers';
-import { TrySignin } from '../store/auth.actions';
+import { TrySignin } from '../auth.state';
 
 @Component({
   selector: 'app-signin',
@@ -11,7 +10,7 @@ import { TrySignin } from '../store/auth.actions';
   styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent {
-  constructor(private store: Store<fromApp.AppState>) {}
+  constructor(private store: Store) {}
 
   onSignin(form: NgForm) {
     const username = form.value.email;
