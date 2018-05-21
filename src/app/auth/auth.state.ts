@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
 import { State, Action, StateContext } from '@ngxs/store';
 import { from } from 'rxjs';
-import * as firebase from 'firebase';
 import { mergeMap, switchMap, tap } from 'rxjs/operators';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 export class TrySignup {
   static readonly type = '[Auth] Try SignUp';
@@ -47,7 +47,7 @@ export interface AuthStateModel {
   }
 })
 export class AuthState {
-  constructor(private router: Router) {}
+  constructor(private router: Router, public afAuth: AngularFireAuth) {}
 
   @Action(Signup)
   signup({ getState, setState }: StateContext<AuthStateModel>) {
@@ -91,9 +91,10 @@ export class AuthState {
     { payload }: TrySignup
   ) {
     return from(
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(payload.username, payload.password)
+      this.afAuth.auth.createUserWithEmailAndPassword(
+        payload.username,
+        payload.password
+      )
     ).pipe(
       mergeMap((token: string) => dispatch([new Signup(), new SetToken(token)]))
     );
@@ -105,21 +106,21 @@ export class AuthState {
     { payload }: TrySignin
   ) {
     return from(
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(payload.username, payload.password)
+      this.afAuth.auth.signInWithEmailAndPassword(
+        payload.username,
+        payload.password
+      )
     ).pipe(
-      switchMap(() => from(firebase.auth().currentUser.getIdToken())),
+      switchMap(() => this.afAuth.idToken),
       tap(() => this.router.navigate(['/'])),
       mergeMap((token: string) => dispatch([new Signin(), new SetToken(token)]))
     );
   }
 
   @Action(Logout)
-  authLogout(
-    { getState, setState }: StateContext<AuthStateModel>,
-  ) {
+  authLogout({ getState, setState }: StateContext<AuthStateModel>) {
     this.router.navigate(['/']);
+    this.afAuth.auth.signOut();
     setState({
       ...getState(),
       token: null,

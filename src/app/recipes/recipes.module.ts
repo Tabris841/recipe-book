@@ -29,7 +29,7 @@ import { RecipeState } from './recipe.state';
     RecipesRoutingModule,
     SharedModule,
     NgbModule,
-    NgxsModule.forFeature([RecipeState])
+    NgxsModule.forFeature([RecipeState]),
   ]
 })
 export class RecipesModule {}

@@ -1,6 +1,7 @@
-import { HttpClient, HttpRequest } from '@angular/common/http';
-import { State, Action, StateContext, Selector  } from '@ngxs/store';
+import { HttpClient } from '@angular/common/http';
+import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { map } from 'rxjs/operators';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
@@ -61,7 +62,10 @@ export interface RecipeStateModel {
   }
 })
 export class RecipeState {
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private db: AngularFireDatabase
+  ) {}
 
   @Selector()
   static recipes(state: RecipeStateModel) {
@@ -125,15 +129,26 @@ export class RecipeState {
   }
 
   @Action(FetchRecipes)
-  fetchRecipes({ dispatch }: StateContext<RecipeStateModel>) {
-    return this.httpClient
-      .get<Recipe[]>(
-        'https://recipe-book-7ea07.firebaseio.com/recipes.json',
-        {
-          observe: 'body',
-          responseType: 'json'
-        }
-      )
+  fetchRecipes({ dispatch, getState }: StateContext<RecipeStateModel>) {
+    // return this.httpClient
+    //   .get<Recipe[]>('https://recipe-book-7ea07.firebaseio.com/recipes.json', {
+    //     observe: 'body',
+    //     responseType: 'json'
+    //   })
+    //   .pipe(
+    //     map(recipes => {
+    //       console.log(recipes);
+    //       for (const recipe of recipes) {
+    //         if (!recipe['ingredients']) {
+    //           recipe['ingredients'] = [];
+    //         }
+    //       }
+    //       return dispatch(new SetRecipes(recipes));
+    //     })
+    //   );
+    return this.db
+      .list<Recipe>(`recipes`)
+      .valueChanges()
       .pipe(
         map(recipes => {
           console.log(recipes);
@@ -150,12 +165,13 @@ export class RecipeState {
   @Action(StoreRecipes)
   storeRecipes({ getState }: StateContext<RecipeStateModel>) {
     const state = getState();
-    const req = new HttpRequest(
-      'PUT',
-      'https://recipe-book-7ea07.firebaseio.com/recipes.json',
-      state.recipes,
-      { reportProgress: true }
-    );
-    return this.httpClient.request(req);
+    return this.db.object('recipes').set(state.recipes);
+    // const req = new HttpRequest(
+    //   'PUT',
+    //   'https://recipe-book-7ea07.firebaseio.com/recipes.json',
+    //   state.recipes,
+    //   { reportProgress: true }
+    // );
+    // return this.httpClient.request(req);
   }
 }
