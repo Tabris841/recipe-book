@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Router } from '@angular/router';
-import * as firebase from 'firebase';
 import { map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { from } from 'rxjs';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 import {
   AuthActionTypes,
@@ -17,7 +17,11 @@ import {
 
 @Injectable()
 export class AuthEffects {
-  constructor(private actions$: Actions, private router: Router) {}
+  constructor(
+    private actions$: Actions,
+    private router: Router,
+    public afAuth: AngularFireAuth
+  ) {}
 
   @Effect()
   authSignup = this.actions$.pipe(
@@ -25,9 +29,10 @@ export class AuthEffects {
     map(action => action.payload),
     switchMap((authData: { username: string; password: string }) =>
       from(
-        firebase
-          .auth()
-          .createUserWithEmailAndPassword(authData.username, authData.password)
+        this.afAuth.auth.createUserWithEmailAndPassword(
+          authData.username,
+          authData.password
+        )
       )
     ),
     mergeMap((token: string) => [new Signup(), new SetToken(token)])
@@ -39,21 +44,22 @@ export class AuthEffects {
     map(action => action.payload),
     switchMap((authData: { username: string; password: string }) =>
       from(
-        firebase
-          .auth()
-          .signInWithEmailAndPassword(authData.username, authData.password)
+        this.afAuth.auth.signInWithEmailAndPassword(
+          authData.username,
+          authData.password
+        )
       )
     ),
-    switchMap(() => from(firebase.auth().currentUser.getIdToken())),
-    mergeMap((token: string) => {
-      this.router.navigate(['/']);
-      return [new Signin(), new SetToken(token)];
-    })
+    switchMap(() => this.afAuth.auth.currentUser.getIdToken(false)),
+    tap(() => this.router.navigate(['/'])),
+    mergeMap((token: string) => [new Signin(), new SetToken(token)])
   );
 
   @Effect({ dispatch: false })
   authLogout = this.actions$.pipe(
     ofType<Logout>(AuthActionTypes.Logout),
-    tap(() => this.router.navigate(['/']))
+    tap(() =>
+      this.afAuth.auth.signOut().then(() => this.router.navigate(['/']))
+    )
   );
 }
