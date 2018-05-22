@@ -5,31 +5,31 @@ import { mergeMap, switchMap, tap } from 'rxjs/operators';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 export class TrySignup {
-  static readonly type = '[Auth] Try SignUp';
+  static readonly type = '[SignUp Component] Auth Try SignUp';
 
   constructor(public payload: { username: string; password: string }) {}
 }
 
 export class TrySignin {
-  static readonly type = '[Auth] Try SignIn';
+  static readonly type = '[SignIn Component] Auth Try SignIn';
 
   constructor(public payload: { username: string; password: string }) {}
 }
 
 export class Signup {
-  static readonly type = '[Auth] SignUp';
+  static readonly type = '[Firebase API] Auth SignUp';
 }
 
 export class Signin {
-  static readonly type = '[Auth] SignIn';
+  static readonly type = '[Firebase API] Auth SignIn';
 }
 
 export class Logout {
-  static readonly type = '[Auth] Logout';
+  static readonly type = '[Header Component] Auth Logout';
 }
 
 export class SetToken {
-  static readonly type = '[Auth] Set Token';
+  static readonly type = '[Firebase API] Auth Set Token';
 
   constructor(public payload: string) {}
 }
@@ -88,13 +88,10 @@ export class AuthState {
   @Action(TrySignup)
   authSignup(
     { dispatch }: StateContext<AuthStateModel>,
-    { payload }: TrySignup
+    { payload: { username, password } }: TrySignup
   ) {
     return from(
-      this.afAuth.auth.createUserWithEmailAndPassword(
-        payload.username,
-        payload.password
-      )
+      this.afAuth.auth.createUserWithEmailAndPassword(username, password)
     ).pipe(
       mergeMap((token: string) => dispatch([new Signup(), new SetToken(token)]))
     );
@@ -103,24 +100,20 @@ export class AuthState {
   @Action(TrySignin)
   authSignin(
     { dispatch }: StateContext<AuthStateModel>,
-    { payload }: TrySignin
+    { payload: { username, password } }: TrySignin
   ) {
     return from(
-      this.afAuth.auth.signInWithEmailAndPassword(
-        payload.username,
-        payload.password
-      )
+      this.afAuth.auth.signInWithEmailAndPassword(username, password)
     ).pipe(
-      switchMap(() => this.afAuth.idToken),
+      switchMap(() => this.afAuth.auth.currentUser.getIdToken(false)),
       tap(() => this.router.navigate(['/'])),
-      mergeMap((token: string) => dispatch([new Signin(), new SetToken(token)]))
+      mergeMap((token) => dispatch([new Signin(), new SetToken(token)]))
     );
   }
 
   @Action(Logout)
   authLogout({ getState, setState }: StateContext<AuthStateModel>) {
-    this.router.navigate(['/']);
-    this.afAuth.auth.signOut();
+    this.afAuth.auth.signOut().then(() => this.router.navigate(['/']));
     setState({
       ...getState(),
       token: null,

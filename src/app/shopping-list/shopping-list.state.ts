@@ -3,35 +3,35 @@ import { State, Action, StateContext } from '@ngxs/store';
 import { Ingredient } from '../shared/ingredient.model';
 
 export class AddIngredient {
-  static readonly type = '[Shopping List] Add Ingredient';
+  static readonly type = '[ShoppingEdit Component] ShoppingList Add Ingredient';
 
   constructor(public payload: Ingredient) {}
 }
 
 export class AddIngredients {
-  static readonly type = '[Shopping List] Add Ingredients';
+  static readonly type = '[RecipeDetail Component] ShoppingList Add Ingredients';
 
   constructor(public payload: Ingredient[]) {}
 }
 
 export class UpdateIngredient {
-  static readonly type = '[Shopping List] Update Ingredient';
+  static readonly type = '[ShoppingEdit Component] ShoppingList Update Ingredient';
 
   constructor(public payload: { ingredient: Ingredient }) {}
 }
 
 export class DeleteIngredient {
-  static readonly type = '[Shopping List] Delete Ingredient';
+  static readonly type = '[ShoppingLEdit Component] ShoppingList Delete Ingredient';
 }
 
 export class StartEdit {
-  static readonly type = '[Shopping List] StartEdit';
+  static readonly type = '[ShoppingList Component] ShoppingList StartEdit';
 
   constructor(public payload: number) {}
 }
 
 export class StopEdit {
-  static readonly type = '[Shopping List] StopEdit';
+  static readonly type = '[ShoppingEdit Component] ShoppingList StopEdit';
 }
 
 export interface ShoppingListStateModel {

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngxs/store';
+import { Component } from '@angular/core';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 import { FetchRecipes, StoreRecipes } from '../../recipes/recipe.state';
@@ -10,14 +10,11 @@ import { AuthStateModel, Logout } from '../../auth/auth.state';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
+  @Select(state => state.auth)
   authState$: Observable<AuthStateModel>;
 
   constructor(private store: Store) {}
-
-  ngOnInit() {
-    this.authState$ = this.store.select(state => state.auth);
-  }
 
   onSaveData() {
     this.store.dispatch(new StoreRecipes());

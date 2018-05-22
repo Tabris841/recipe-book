@@ -7,35 +7,35 @@ import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
 
 export class SetRecipes {
-  static readonly type = '[Recipe] Set Recipes';
+  static readonly type = '[Recipe Component] Set Recipes';
 
   constructor(public payload: Recipe[]) {}
 }
 
 export class AddRecipe {
-  static readonly type = '[Recipe] Add Recipe';
+  static readonly type = '[RecipeEdit Component] Add Recipe';
 
   constructor(public payload: Recipe) {}
 }
 
 export class UpdateRecipe {
-  static readonly type = '[[Recipe] Update Recipe';
+  static readonly type = '[RecipeEdit Component] Update Recipe';
 
   constructor(public payload: { index: number; updatedRecipe: Recipe }) {}
 }
 
 export class DeleteRecipe {
-  static readonly type = '[Recipe] Delete Recipe';
+  static readonly type = '[RecipeDetail Component] Delete Recipe';
 
   constructor(public payload: number) {}
 }
 
 export class StoreRecipes {
-  static readonly type = '[Recipe] Store Recipes';
+  static readonly type = '[Firebase API] Store Recipes';
 }
 
 export class FetchRecipes {
-  static readonly type = '[Recipe] Fetch Recipes';
+  static readonly type = '[Firebase API] Fetch Recipes';
 }
 
 export interface RecipeStateModel {

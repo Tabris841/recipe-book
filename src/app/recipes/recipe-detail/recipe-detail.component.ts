@@ -31,7 +31,7 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onAddToShoppingList() {
-    this.store.selectOnce(state => state.recipes).subscribe(recipes => {
+    this.store.selectOnce(state => state.recipes).subscribe(({ recipes }) => {
       this.store.dispatch(new AddIngredients(recipes[this.id].ingredients));
     });
   }
