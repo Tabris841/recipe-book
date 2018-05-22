@@ -3,7 +3,7 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 import { FetchRecipes, StoreRecipes } from '../../recipes/store';
-import { AuthStateModel, Logout } from '../../auth/store';
+import { AuthState, Logout } from '../../auth/store';
 
 @Component({
   selector: 'app-header',
@@ -11,8 +11,8 @@ import { AuthStateModel, Logout } from '../../auth/store';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  @Select(state => state.auth)
-  authState$: Observable<AuthStateModel>;
+  @Select(AuthState.authenticated)
+  authenticated$: Observable<boolean>;
 
   constructor(private store: Store) {}
 

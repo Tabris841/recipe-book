@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { State, Action, StateContext } from '@ngxs/store';
+import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { from } from 'rxjs';
 import { mergeMap, switchMap, tap } from 'rxjs/operators';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -27,6 +27,12 @@ export interface AuthStateModel {
 })
 export class AuthState {
   constructor(private router: Router, public afAuth: AngularFireAuth) {}
+
+  @Selector()
+  static authenticated(state: AuthStateModel) {
+    debugger
+    return state.authenticated;
+  }
 
   @Action(Signup)
   signup({ patchState }: StateContext<AuthStateModel>) {
