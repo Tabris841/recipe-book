@@ -1,5 +1,19 @@
+import {
+  __,
+  append,
+  evolve,
+  identity,
+  merge,
+  mergeAll,
+  mergeDeepWith,
+  propOr, update
+} from 'ramda';
+
 import { Ingredient } from '../../shared/ingredient.model';
-import { ShoppingListActionsTypes, ShoppingListActionsUnion } from './shopping-list.actions';
+import {
+  ShoppingListActionsTypes,
+  ShoppingListActionsUnion
+} from './shopping-list.actions';
 
 export interface State {
   ingredients: Ingredient[];
@@ -12,18 +26,25 @@ const initialState: State = {
   editedIngredient: null,
   editedIngredientIndex: -1
 };
-
+// function createReducer(initialState, handlers) {
+//   return (state = initialState, action) =>
+//     propOr(identity, action.type, handlers)(state, action);
+// }
 export function shoppingListReducer(
   state = initialState,
   action: ShoppingListActionsUnion
 ) {
   switch (action.type) {
     case ShoppingListActionsTypes.AddIngredient:
-      return {
-        ...state,
-        ingredients: [...state.ingredients, action.payload]
-      };
+      return evolve(__, state)({
+        ingredients: append(action.payload)
+      });
+      // return {
+      //   ...state,
+      //   ingredients: [...state.ingredients, action.payload]
+      // };
     case ShoppingListActionsTypes.AddIngredients:
+      // return mergeAll([state, { ingredients: action.payload }]);
       return {
         ...state,
         ingredients: [...state.ingredients, ...action.payload]
@@ -36,6 +57,11 @@ export function shoppingListReducer(
       };
       const ingredients = [...state.ingredients];
       ingredients[state.editedIngredientIndex] = updatedIngredient;
+      // return mergeAll([state, {
+      //   ingredients,
+      //   editedIngredient: null,
+      //   editedIngredientIndex: -1
+      // }]);
       return {
         ...state,
         ingredients: ingredients,

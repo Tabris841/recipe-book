@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
     return this.store.select('auth')
       .pipe(
         take(1),
-        map((authState: fromAuth.State) => {
+        map((authState: fromAuth.AuthState) => {
           return authState.authenticated;
         })
       )

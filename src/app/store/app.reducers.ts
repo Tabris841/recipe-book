@@ -5,7 +5,7 @@ import * as fromAuth from '../auth/store/auth.reducers';
 
 export interface AppState {
   shoppingList: fromShoppingList.State;
-  auth: fromAuth.State;
+  auth: fromAuth.AuthState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {

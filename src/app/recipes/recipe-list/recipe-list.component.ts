@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
@@ -11,15 +11,17 @@ import { Recipe } from '../recipe.model';
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.scss']
 })
-export class RecipeListComponent {
+export class RecipeListComponent implements OnInit {
   recipes$: Observable<Recipe[]>;
 
   constructor(
     private store: Store<fromRecipe.FeatureState>,
     private router: Router,
     private route: ActivatedRoute
-  ) {
-    this.recipes$ = store.pipe(select(fromRecipe.getRecipes));
+  ) {}
+
+  ngOnInit() {
+    this.recipes$ = this.store.pipe(select(fromRecipe.getRecipes));
   }
 
   onNewRecipe() {
