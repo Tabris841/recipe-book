@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Store } from '@ngxs/store';
 
-import { TrySignin } from '../auth.state';
+import { TrySignin } from '../store';
 
 @Component({
   selector: 'app-signin',

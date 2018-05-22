@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  Validators,
+  FormBuilder
+} from '@angular/forms';
 import { Store } from '@ngxs/store';
 
-import { AddRecipe, UpdateRecipe } from '../recipe.state';
+import { AddRecipe, UpdateRecipe } from '../store';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -18,7 +24,8 @@ export class RecipeEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private store: Store,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
@@ -30,11 +37,6 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onSubmit() {
-    // const newRecipe = new Recipe(
-    //   this.recipeForm.value['name'],
-    //   this.recipeForm.value['description'],
-    //   this.recipeForm.value['imagePath'],
-    //   this.recipeForm.value['ingredients']);
     if (this.editMode) {
       this.store.dispatch(
         new UpdateRecipe({
@@ -96,10 +98,10 @@ export class RecipeEditComponent implements OnInit {
       });
     }
 
-    this.recipeForm = new FormGroup({
-      name: new FormControl(recipeName, Validators.required),
-      imagePath: new FormControl(recipeImagePath, Validators.required),
-      description: new FormControl(recipeDescription, Validators.required),
+    this.recipeForm = this.formBuilder.group({
+      name: [recipeName, Validators.required],
+      imagePath: [recipeImagePath, Validators.required],
+      description: [recipeDescription, Validators.required],
       ingredients: recipeIngredients
     });
   }

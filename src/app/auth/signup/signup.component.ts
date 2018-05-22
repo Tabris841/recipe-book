@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Store } from '@ngxs/store';
 
-import { TrySignup } from '../auth.state';
+import { TrySignup } from '../store';
 
 @Component({
   selector: 'app-signup',

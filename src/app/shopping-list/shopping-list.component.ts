@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
 
 import { Ingredient } from '../shared/ingredient.model';
-import { StartEdit } from './shopping-list.state';
+import { ShoppingListState, StartEdit } from './store';
 
 @Component({
   selector: 'app-shopping-list',
@@ -11,8 +11,8 @@ import { StartEdit } from './shopping-list.state';
   styleUrls: ['./shopping-list.component.scss']
 })
 export class ShoppingListComponent {
-  @Select(state => state.shoppingList)
-  shoppingListState$: Observable<{ ingredients: Ingredient[] }>;
+  @Select(ShoppingListState.ingredients)
+  ingredients$: Observable<Ingredient[]>;
 
   constructor(private store: Store) {}
 

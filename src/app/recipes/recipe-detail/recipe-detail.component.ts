@@ -4,8 +4,8 @@ import { Store, Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 import { Recipe } from '../recipe.model';
-import { DeleteRecipe, RecipeState } from '../recipe.state';
-import { AddIngredients } from '../../shopping-list/shopping-list.state';
+import { DeleteRecipe, RecipeState } from '../store';
+import { AddIngredients } from '../../shopping-list/store';
 
 @Component({
   selector: 'app-recipe-detail',

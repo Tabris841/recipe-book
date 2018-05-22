@@ -9,7 +9,7 @@ import {
   DeleteIngredient,
   StopEdit,
   UpdateIngredient
-} from '../shopping-list.state';
+} from '../store';
 
 @Component({
   selector: 'app-shopping-edit',

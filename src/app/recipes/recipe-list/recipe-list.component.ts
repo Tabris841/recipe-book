@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Store, Select } from '@ngxs/store';
 
 import { Recipe } from '../recipe.model';
-import { RecipeState } from '../recipe.state';
+import { RecipeState } from '../store';
 
 @Component({
   selector: 'app-recipe-list',

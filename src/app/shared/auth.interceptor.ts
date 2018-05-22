@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { switchMap } from 'rxjs/operators';
 
-import { AuthStateModel } from '../auth/auth.state';
+import { AuthStateModel } from '../auth/store/auth.state';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

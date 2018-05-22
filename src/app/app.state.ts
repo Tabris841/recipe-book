@@ -1,12 +1,4 @@
-import { AuthState, AuthStateModel } from './auth/auth.state';
-import {
-  ShoppingListState,
-  ShoppingListStateModel
-} from './shopping-list/shopping-list.state';
-
-export interface AppState {
-  auth: AuthStateModel;
-  shoppingList: ShoppingListStateModel;
-}
+import { AuthState } from './auth/store';
+import { ShoppingListState } from './shopping-list/store';
 
 export const states = [AuthState, ShoppingListState];

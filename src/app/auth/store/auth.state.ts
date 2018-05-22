@@ -4,35 +4,14 @@ import { from } from 'rxjs';
 import { mergeMap, switchMap, tap } from 'rxjs/operators';
 import { AngularFireAuth } from 'angularfire2/auth';
 
-export class TrySignup {
-  static readonly type = '[SignUp Component] Auth Try SignUp';
-
-  constructor(public payload: { username: string; password: string }) {}
-}
-
-export class TrySignin {
-  static readonly type = '[SignIn Component] Auth Try SignIn';
-
-  constructor(public payload: { username: string; password: string }) {}
-}
-
-export class Signup {
-  static readonly type = '[Firebase API] Auth SignUp';
-}
-
-export class Signin {
-  static readonly type = '[Firebase API] Auth SignIn';
-}
-
-export class Logout {
-  static readonly type = '[Header Component] Auth Logout';
-}
-
-export class SetToken {
-  static readonly type = '[Firebase API] Auth Set Token';
-
-  constructor(public payload: string) {}
-}
+import {
+  Logout,
+  SetToken,
+  Signin,
+  Signup,
+  TrySignin,
+  TrySignup
+} from './auth.actions';
 
 export interface AuthStateModel {
   token: string;
@@ -50,25 +29,22 @@ export class AuthState {
   constructor(private router: Router, public afAuth: AngularFireAuth) {}
 
   @Action(Signup)
-  signup({ getState, setState }: StateContext<AuthStateModel>) {
-    setState({
-      ...getState(),
+  signup({ patchState }: StateContext<AuthStateModel>) {
+    patchState({
       authenticated: true
     });
   }
 
   @Action(Signin)
-  signip({ getState, setState }: StateContext<AuthStateModel>) {
-    setState({
-      ...getState(),
+  signip({ patchState }: StateContext<AuthStateModel>) {
+    patchState({
       authenticated: true
     });
   }
 
   @Action(Logout)
-  logout({ getState, setState }: StateContext<AuthStateModel>) {
-    setState({
-      ...getState(),
+  logout({ patchState }: StateContext<AuthStateModel>) {
+    patchState({
       token: null,
       authenticated: false
     });
@@ -76,11 +52,10 @@ export class AuthState {
 
   @Action(SetToken)
   setState(
-    { getState, setState }: StateContext<AuthStateModel>,
+    { patchState }: StateContext<AuthStateModel>,
     { payload }: SetToken
   ) {
-    setState({
-      ...getState(),
+    patchState({
       token: payload
     });
   }
@@ -107,7 +82,7 @@ export class AuthState {
     ).pipe(
       switchMap(() => this.afAuth.auth.currentUser.getIdToken(false)),
       tap(() => this.router.navigate(['/'])),
-      mergeMap((token) => dispatch([new Signin(), new SetToken(token)]))
+      mergeMap(token => dispatch([new Signin(), new SetToken(token)]))
     );
   }
 

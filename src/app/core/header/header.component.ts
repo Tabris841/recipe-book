@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
-import { FetchRecipes, StoreRecipes } from '../../recipes/recipe.state';
-import { AuthStateModel, Logout } from '../../auth/auth.state';
+import { FetchRecipes, StoreRecipes } from '../../recipes/store';
+import { AuthStateModel, Logout } from '../../auth/store';
 
 @Component({
   selector: 'app-header',

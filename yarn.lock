@@ -175,11 +175,11 @@
   dependencies:
     tslib "^1.9.0"
 
-"@firebase/app-types@0.3.1":
+"@firebase/app-types@0.3.1", "@firebase/app-types@^0.3.1":
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/@firebase/app-types/-/app-types-0.3.1.tgz#df4e79c38f759e606a421e866cecb7da4577b606"
 
-"@firebase/app@0.3.2":
+"@firebase/app@0.3.2", "@firebase/app@^0.3.2":
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/@firebase/app/-/app-0.3.2.tgz#863a5558ee796e55ce90bd9bef8ee66ef6a96e6f"
   dependencies:
@@ -299,6 +299,18 @@
 "@ngxs/devtools-plugin@^3.0.1":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@ngxs/devtools-plugin/-/devtools-plugin-3.0.1.tgz#a0c925777466dd38bd5873dfae50c43c09b2e319"
+  dependencies:
+    tslib "^1.9.0"
+
+"@ngxs/form-plugin@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@ngxs/form-plugin/-/form-plugin-3.0.1.tgz#15f9e5829201b1d21e8dfecae85faceca7de63f0"
+  dependencies:
+    tslib "^1.9.0"
+
+"@ngxs/logger-plugin@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@ngxs/logger-plugin/-/logger-plugin-3.0.1.tgz#8bb2286b4df8f179c8d7253ef06b94f4eeceade1"
   dependencies:
     tslib "^1.9.0"
 

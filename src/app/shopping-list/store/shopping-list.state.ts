@@ -1,38 +1,14 @@
-import { State, Action, StateContext } from '@ngxs/store';
+import { State, Action, StateContext, Selector } from '@ngxs/store';
 
-import { Ingredient } from '../shared/ingredient.model';
-
-export class AddIngredient {
-  static readonly type = '[ShoppingEdit Component] ShoppingList Add Ingredient';
-
-  constructor(public payload: Ingredient) {}
-}
-
-export class AddIngredients {
-  static readonly type = '[RecipeDetail Component] ShoppingList Add Ingredients';
-
-  constructor(public payload: Ingredient[]) {}
-}
-
-export class UpdateIngredient {
-  static readonly type = '[ShoppingEdit Component] ShoppingList Update Ingredient';
-
-  constructor(public payload: { ingredient: Ingredient }) {}
-}
-
-export class DeleteIngredient {
-  static readonly type = '[ShoppingLEdit Component] ShoppingList Delete Ingredient';
-}
-
-export class StartEdit {
-  static readonly type = '[ShoppingList Component] ShoppingList StartEdit';
-
-  constructor(public payload: number) {}
-}
-
-export class StopEdit {
-  static readonly type = '[ShoppingEdit Component] ShoppingList StopEdit';
-}
+import { Ingredient } from '../../shared/ingredient.model';
+import {
+  AddIngredient,
+  AddIngredients,
+  DeleteIngredient,
+  StartEdit,
+  StopEdit,
+  UpdateIngredient
+} from './shopping-list.actions';
 
 export interface ShoppingListStateModel {
   ingredients: Ingredient[];
@@ -49,33 +25,41 @@ export interface ShoppingListStateModel {
   }
 })
 export class ShoppingListState {
+  @Selector()
+  static ingredients(state: ShoppingListStateModel) {
+    return state.ingredients;
+  }
+
+  @Selector()
+  static shoppingList(state: ShoppingListStateModel) {
+    return state.ingredients;
+  }
+
   @Action(AddIngredient)
   addIngredient(
-    { getState, setState }: StateContext<ShoppingListStateModel>,
+    { getState, patchState }: StateContext<ShoppingListStateModel>,
     { payload }: AddIngredient
   ) {
     const state = getState();
-    setState({
-      ...state,
+    patchState({
       ingredients: [...state.ingredients, payload]
     });
   }
 
   @Action(AddIngredients)
   addIngredients(
-    { getState, setState }: StateContext<ShoppingListStateModel>,
+    { getState, patchState }: StateContext<ShoppingListStateModel>,
     { payload }: AddIngredients
   ) {
     const state = getState();
-    setState({
-      ...state,
+    patchState({
       ingredients: [...state.ingredients, ...payload]
     });
   }
 
   @Action(UpdateIngredient)
   updateIngredient(
-    { getState, setState }: StateContext<ShoppingListStateModel>,
+    { getState, patchState }: StateContext<ShoppingListStateModel>,
     { payload }: UpdateIngredient
   ) {
     const state = getState();
@@ -86,7 +70,7 @@ export class ShoppingListState {
     };
     const ingredients = [...state.ingredients];
     ingredients[state.editedIngredientIndex] = updatedIngredient;
-    setState({
+    patchState({
       ...state,
       ingredients: ingredients,
       editedIngredient: null,
@@ -97,14 +81,13 @@ export class ShoppingListState {
   @Action(DeleteIngredient)
   deleteIngredient({
     getState,
-    setState
+    patchState
   }: StateContext<ShoppingListStateModel>) {
     const state = getState();
-    const oldIngredients = [...state.ingredients];
-    oldIngredients.splice(state.editedIngredientIndex, 1);
-    setState({
-      ...state,
-      ingredients: oldIngredients,
+    const newIngredients = getState().ingredients.slice();
+    newIngredients.splice(state.editedIngredientIndex, 1);
+    patchState({
+      ingredients: newIngredients,
       editedIngredient: null,
       editedIngredientIndex: -1
     });
@@ -112,23 +95,20 @@ export class ShoppingListState {
 
   @Action(StartEdit)
   startEdit(
-    { getState, setState }: StateContext<ShoppingListStateModel>,
+    { getState, patchState }: StateContext<ShoppingListStateModel>,
     { payload }: StartEdit
   ) {
     const state = getState();
     const editedIngredient = { ...state.ingredients[payload] };
-    setState({
-      ...state,
+    patchState({
       editedIngredient: editedIngredient,
       editedIngredientIndex: payload
     });
   }
 
   @Action(StopEdit)
-  stopEdit({ getState, setState }: StateContext<ShoppingListStateModel>) {
-    const state = getState();
-    setState({
-      ...state,
+  stopEdit({ patchState }: StateContext<ShoppingListStateModel>) {
+    patchState({
       editedIngredient: null,
       editedIngredientIndex: -1
     });

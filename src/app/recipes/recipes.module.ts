@@ -3,6 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxsModule } from '@ngxs/store';
+import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 
 import { RecipesRoutingModule } from './recipes-routing.module';
 import { SharedModule } from '../shared/shared.module';
@@ -12,7 +13,7 @@ import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 import { RecipeItemComponent } from './recipe-list/recipe-item/recipe-item.component';
-import { RecipeState } from './recipe.state';
+import { RecipeState } from './store/recipe.state';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { RecipeState } from './recipe.state';
     SharedModule,
     NgbModule,
     NgxsModule.forFeature([RecipeState]),
+    NgxsFormPluginModule
   ]
 })
 export class RecipesModule {}
