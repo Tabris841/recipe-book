@@ -1,4 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { append, evolve, remove, update } from 'ramda';
 
 import { Recipe } from '../recipe.model';
 import { Ingredient } from '../../shared/ingredient.model';
@@ -41,29 +42,21 @@ export function recipeReducer(
         recipes: [...action.payload]
       };
     case RecipeActionType.AddRecipe:
-      return {
-        ...state,
-        recipes: [...state.recipes, action.payload]
-      };
+      return evolve({ recipes: append(action.payload) }, state);
     case RecipeActionType.UpdateRecipe:
-      const recipe = state.recipes[action.payload.index];
-      const updatedRecipe = {
-        ...recipe,
-        ...action.payload.updatedRecipe
-      };
-      const recipes = [...state.recipes];
-      recipes[action.payload.index] = updatedRecipe;
-      return {
-        ...state,
-        recipes: recipes
-      };
+      return evolve(
+        {
+          recipes: update(action.payload.index, action.payload.updatedRecipe)
+        },
+        state
+      );
     case RecipeActionType.DeleteRecipe:
-      const oldRecipes = [...state.recipes];
-      oldRecipes.splice(action.payload, 1);
-      return {
-        ...state,
-        recipes: oldRecipes
-      };
+      return evolve(
+        {
+          recipes: remove(action.payload, 1)
+        },
+        state
+      );
     default:
       return state;
   }
