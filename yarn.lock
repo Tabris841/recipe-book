@@ -97,6 +97,12 @@
   dependencies:
     tslib "^1.9.0"
 
+"@angular/cdk@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-6.1.0.tgz#14ae46730315d40b5a642daa8f5f80815930085c"
+  dependencies:
+    tslib "^1.7.1"
+
 "@angular/cli@~6.0.3":
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-6.0.3.tgz#a7a2defdaa2a9f2914aadb7e0a25d9a43d8346c4"
@@ -358,10 +364,6 @@
 "@types/q@^0.0.32":
   version "0.0.32"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-0.0.32.tgz#bd284e57c84f1325da702babfc82a5328190c0c5"
-
-"@types/ramda@^0.25.29":
-  version "0.25.29"
-  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.25.29.tgz#05a58a3ba728344ecc9d99e37beb2adf822fb01c"
 
 "@types/ramda@types/npm-ramda#dist":
   version "0.25.0"

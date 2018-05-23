@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -37,7 +38,8 @@ import { AuthEffects } from './auth/store/auth.effects';
     AngularFireAuthModule,
     EffectsModule.forRoot([AuthEffects]),
     StoreRouterConnectingModule,
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
