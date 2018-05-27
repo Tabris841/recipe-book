@@ -18,7 +18,7 @@ export function authReducer(state = initialState, action: AuthActionsUnion) {
     case AuthActionTypes.SignIn:
       return merge(state, { authenticated: true });
     case AuthActionTypes.Logout:
-      return merge(state, { token: null, authenticated: true });
+      return merge(state, { token: null, authenticated: false });
     case AuthActionTypes.SetToken:
       return merge(state, { token: action.payload });
     default:

@@ -20,7 +20,7 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private router: Router,
-    public afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth
   ) {}
 
   @Effect()

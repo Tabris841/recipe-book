@@ -1,7 +1,33 @@
 import { NgModule } from '@angular/core';
-import { MatFormFieldModule, MatInputModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatToolbarModule
+} from '@angular/material';
+import { LayoutModule } from '@angular/cdk/layout';
 
-const materialModules = [MatInputModule, MatFormFieldModule];
+const materialModules = [
+  MatInputModule,
+  MatFormFieldModule,
+  MatCardModule,
+  MatButtonModule,
+  MatToolbarModule,
+  LayoutModule,
+  MatToolbarModule,
+  MatButtonModule,
+  MatSidenavModule,
+  MatIconModule,
+  MatListModule,
+  MatSelectModule,
+  MatMenuModule
+];
 
 @NgModule({
   imports: materialModules,

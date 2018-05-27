@@ -21,12 +21,12 @@ import { SharedModule } from './shared/shared.module';
 import { reducers } from './store/app.reducers';
 import { AuthEffects } from './auth/store/auth.effects';
 
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
     NgbModule.forRoot(),
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     SharedModule,
     ShoppingListModule,
@@ -39,7 +39,6 @@ import { AuthEffects } from './auth/store/auth.effects';
     EffectsModule.forRoot([AuthEffects]),
     StoreRouterConnectingModule,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
