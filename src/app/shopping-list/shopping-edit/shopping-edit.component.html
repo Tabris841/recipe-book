@@ -1,47 +1,53 @@
-<form (ngSubmit)="onSubmit(f)" #f="ngForm">
-  <div class="row">
-    <div class="col-sm-5 form-group">
-      <label for="name">Name</label>
-      <input
-        type="text"
-        id="name"
-        class="form-control"
-        name="name"
-        ngModel
-        required
-      >
-    </div>
-    <div class="col-sm-2 form-group">
-      <label for="amount">Amount</label>
-      <input
-        type="number"
-        id="amount"
-        class="form-control"
-        name="amount"
-        ngModel
-        required
-        pattern="^[1-9]+[0-9]*$"
-      >
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 btn-group">
-      <button
-        class="btn btn-success"
-        type="submit"
-        [disabled]="!f.valid"
-      >
-        {{ editMode ? 'Update' : 'Add' }}
-      </button>
-      <button
-        class="btn btn-danger"
-        type="button"
-        (click)="onDelete()"
-        *ngIf="editMode"
-      >
-        Delete
-      </button>
-      <button class="btn btn-primary" type="button" (click)="onClear()">Clear</button>
-    </div>
+<form (ngSubmit)="onSubmit(f)" #f="ngForm" class="form-container">
+  <mat-form-field class="full-width">
+    <input
+      matInput
+      placeholder="Name"
+      type="text"
+      id="name"
+      name="name"
+      required
+      ngModel
+    />
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input
+      matInput
+      placeholder="Amount"
+      type="number"
+      id="amount"
+      name="amount"
+      required
+      ngModel
+      pattern="^[1-9]+[0-9]*$"
+    />
+  </mat-form-field>
+
+  <div class="full-width">
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!f.valid"
+    >
+      {{ editMode ? 'Update' : 'Add' }}
+    </button>
+    <button
+      mat-raised-button
+      color="warn"
+      type="button"
+      (click)="onDelete()"
+      *ngIf="editMode"
+    >
+      Delete
+    </button>
+    <button
+      mat-raised-button
+      type="button"
+      (click)="onClear()"
+    >
+      Clear
+    </button>
   </div>
 </form>

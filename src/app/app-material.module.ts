@@ -3,6 +3,7 @@ import {
   MatButtonModule,
   MatCardModule,
   MatFormFieldModule,
+  MatGridListModule,
   MatIconModule,
   MatInputModule,
   MatListModule,
@@ -26,7 +27,8 @@ const materialModules = [
   MatIconModule,
   MatListModule,
   MatSelectModule,
-  MatMenuModule
+  MatMenuModule,
+  MatGridListModule
 ];
 
 @NgModule({

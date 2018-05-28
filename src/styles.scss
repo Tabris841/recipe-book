@@ -1,4 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/dist/css/bootstrap.css";
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 body { margin: 0; }
+
+.container {
+  display: flex;
+  margin: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.container [class*='col'] {
+  padding: 10px;
+  flex: 1;
+}

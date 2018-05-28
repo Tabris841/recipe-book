@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="singin-card">
   <form (ngSubmit)="onSignin(f)" #f="ngForm" class="form-container">
     <mat-form-field>
       <input
@@ -9,7 +9,8 @@
         name="email"
         required
         ngModel
-      ></mat-form-field>
+      />
+    </mat-form-field>
     <mat-form-field>
       <input
         matInput
@@ -19,7 +20,8 @@
         name="password"
         required
         ngModel
-      ></mat-form-field>
+      />
+    </mat-form-field>
     <button
       mat-raised-button
       type="submit"

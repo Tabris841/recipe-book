@@ -1,12 +1,20 @@
-<app-shopping-edit></app-shopping-edit>
-<hr>
-<ul class="list-group">
-  <li
-    class="list-group-item"
-    style="cursor: pointer"
-    *ngFor="let ingredient of (shoppingListState | async).ingredients; let i = index"
-    (click)="onEditItem(i)"
-  >
-    {{ ingredient.name }} ({{ ingredient.amount }})
-  </li>
-</ul>
+<div class="container shopping-list">
+  <mat-card>
+    <mat-card-content>
+      <app-shopping-edit></app-shopping-edit>
+      <hr>
+      <mat-list>
+        <mat-list-item
+          style="cursor: pointer"
+          *ngFor="let ingredient of (shoppingListState | async).ingredients; let i = index"
+          (click)="onEditItem(i)"
+        >
+          {{ ingredient.name }} ({{ ingredient.amount }})
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+

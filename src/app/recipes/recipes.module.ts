@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
@@ -30,7 +29,6 @@ import { RecipeEffects } from './store/recipe.effects';
     ReactiveFormsModule,
     RecipesRoutingModule,
     SharedModule,
-    NgbModule,
     StoreModule.forFeature('recipes', recipeReducer),
     EffectsModule.forFeature([RecipeEffects])
   ]

@@ -1,48 +1,32 @@
-<div class="row">
-  <div class="col-xs-12">
-    <img
-      [src]="(recipes$| async)[id].imagePath "
-      alt="{{ (recipes$| async)[id].name  }}"
-      class="img-responsive"
-      style="max-height: 300px;">
-  </div>
+<div>
+  <img
+    [src]="(recipes$| async)[id].imagePath "
+    alt="{{ (recipes$| async)[id].name  }}"
+    style="max-height: 300px;">
 </div>
-<div class="row">
-  <div class="col-xs-12">
-    <h1>{{ (recipes$ | async)[id].name }}</h1>
-  </div>
+
+<div>
+  <h1 class="mat-headline">{{ (recipes$ | async)[id].name }}</h1>
 </div>
-<div class="row">
-  <div class="col-xs-12">
-    <div ngbDropdown appDropdown class="d-inline-block">
-      <button type="button" class="btn btn-primary" ngbDropdownToggle>Manage Recipe</button>
-      <div ngbDropdownMenu>
-        <button class="dropdown-item" (click)="onAddToShoppingList()">
-          To Shopping List
-        </button>
-        <button class="dropdown-item" (click)="onEditRecipe()">
-          Edit Recipe
-        </button>
-        <button class="dropdown-item" (click)="onDeleteRecipe()">
-          Delete Recipe
-        </button>
-      </div>
-    </div>
-  </div>
+
+<div>
+  <button mat-button color="primary" [matMenuTriggerFor]="menu">Manage Recipe</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="onAddToShoppingList()">To Shopping List</button>
+    <button mat-menu-item (click)="onEditRecipe()">Edit Recipe</button>
+    <button mat-menu-item (click)="onDeleteRecipe()">Delete Recipe</button>
+  </mat-menu>
 </div>
-<div class="row">
-  <div class="col-xs-12">
-    {{ (recipes$ | async)[id].description }}
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    <ul class="list-group">
-      <li
-        class="list-group-item"
-        *ngFor="let ingredient of (recipes$ | async)[id].ingredients">
-        {{ ingredient.name }} - {{ ingredient.amount }}
-      </li>
-    </ul>
-  </div>
-</div>
+
+<p class="mat-typography">
+  {{ (recipes$ | async)[id].description }}
+</p>
+
+<mat-list>
+  <mat-list-item
+    class="list-group-item"
+    *ngFor="let ingredient of (recipes$ | async)[id].ingredients">
+    {{ ingredient.name }} - {{ ingredient.amount }}
+  </mat-list-item>
+</mat-list>
+
