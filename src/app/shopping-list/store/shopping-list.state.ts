@@ -84,7 +84,7 @@ export class ShoppingListState {
     patchState
   }: StateContext<ShoppingListStateModel>) {
     const state = getState();
-    const newIngredients = getState().ingredients.slice();
+    const newIngredients = state.ingredients.slice();
     newIngredients.splice(state.editedIngredientIndex, 1);
     patchState({
       ingredients: newIngredients,

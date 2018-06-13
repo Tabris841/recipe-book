@@ -30,7 +30,6 @@ export class AuthState {
 
   @Selector()
   static authenticated(state: AuthStateModel) {
-    debugger
     return state.authenticated;
   }
 
